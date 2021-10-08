@@ -8,9 +8,29 @@
     <script src="scripts/client.js"></script>
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Fredoka+One&family=Lobster&family=Lobster+Two&family=Luckiest+Guy&family=Permanent+Marker&family=Yaldevi:wght@200&display=swap" rel="stylesheet">
     <title>SQL to-do-list</title>
 </head>
 <body>
     <h1>SQL To-Do List</h1>
+<section id="addTask">
+    <input type="text" id="taskIn" value="" placeholder="Add New Task">
+    <button type="button" id="addButton">Add Task ✅</button>
+</section>
+    <section id="tableSection">
+        <h2>All Koalas</h2>
+        <table class= "table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Completed?</th>
+            </tr>
+          </thead>
+          <tbody id="viewTasks">
+          </tbody>
+        </table>
+      </section>
 </body>
 </html>
