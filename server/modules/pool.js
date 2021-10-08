@@ -5,7 +5,7 @@ const pool = new pg.Pool({
     database: 'sql_todo', //change NAME to db name
     host: 'localhost',
     port: 5432,
-    max: 30,
+    max: 12,
     idleTimeoutMillis: 30000
 })
 // export
