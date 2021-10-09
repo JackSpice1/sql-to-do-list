@@ -18,6 +18,17 @@ function toggleCheck(_isComplete){
     let objectToSend ={
         completed: isComplete
     }
+
+    $.ajax({
+        method: 'PUT',  //make ajax call for updating tasks 
+        url: '/tasks?id=' + $(this).data('id'),
+        data: objectToSend
+    }).then(function(response){
+        getTasks(); //refresh new tasks to DOM after changes 
+    }).catch(function(err){
+        console.log('error updating task:' err);
+        alert(`error updating task - see console for more details`);
+    });
 }
 
 function addNewTask(){
@@ -65,3 +76,38 @@ function getTasks(){
         
     }      
 }//end getTasks
+
+function deleteTasks(){
+    console.log('in deleteTasks');
+
+    swal({
+        title: "Are you sure?",
+        text: "once deleted, you will not be able to recover this task",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+
+    .then((willDelete)=>{
+        if (willDelete) {
+            swal("Good job completing this task!",{
+                icon: "success",
+            });
+            $.ajax({
+                method: 'DELETE',
+                url: '/tasks?id' + $(this).data('id'),
+            }).then(function(response){
+                displayAllTasks();
+            }).catch(function(err){
+                console.log('error deleting task', err);
+                alert(`error delting task - see console`);
+            })
+        } else{
+            swal("Your task is safe!",{
+                icon: "error"
+            });
+        }
+    })
+
+
+} //end deleteTasks
