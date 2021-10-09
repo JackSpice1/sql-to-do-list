@@ -30,7 +30,36 @@ app.get('/tasks', (req, res)=>{
     })
   })
 //POST
-
+app.post('/tasks', (req, res)=>{
+    console.log('/tasks POST:', req.body);
+    const queryString = 'INSERT INTO tasks  (task, completed) VALUES ($1, $2)';
+    const values = [req.body.task, req.body.completed];
+    pool.query( queryString, values).then( (results)=>{
+        res.sendStatus(201); //item creaated
+    }).catch( (err)=>{
+        console.log('err');
+        res.sendStatus(500);
+    })
+})
 //UPDATE
-
+app.put('/tasks', (req,res)=>{
+    console.log('/tasks update hit:', req.query);
+    const queryString= `UPDATE FROM tasks WHERE id='${req.query.id}';`;
+    pool.query(queryString).then((results)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log('error updating task', err);
+        res.sendStatus(500);
+    })
+})
 //DELETE
+app.delete('/tasks', (req,res)=> {
+    console.log('/tasks delete hit:', req.query);
+    const queryString = `DELETE FROM tasks WHERE id='${req.query.id}';`;
+    pool.query(queryString).then((results)=>{
+      res.sendStatus(200);
+    }).catch((err)=>{
+      console.log('error deleting task from database:', err);
+      res.sendStatus(500);
+    })
+  })
