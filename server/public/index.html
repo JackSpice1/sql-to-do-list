@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="vendors/jquery-3.6.0.min.js"></script>
+    <script src="vendors/jquery-3.5.1.min.js"></script>
     <script src="scripts/client.js"></script>
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/styles.css">
@@ -15,31 +15,31 @@
     <title>SQL to-do-list</title>
 </head>
 <body>
-    <header>
+    <header class="container-fluid">
     <h1>Jackie's To-Do List</h1>
 
-<div id="input Div">
+<div id="input Div" class="input-group mb-3">
     <input type="text" id="taskIn" value="" placeholder="Add New Task">
-    <button class="addBtn" id="add_button">Add Task ✅</button>
-
+    <input type="text" id="goalIn"placeholder="date you wish to complete by:"></input>
+    <button class="addBtn" id="addTask">Add Task ✅</button>
+    <div id="forCancelBtn"></div>
 </div>
 </header>
 
-    <ul id="outputUL">
-            <!-- tasks will appear here!-->
-    </ul>
-    <!-- <script src="scripts/client.js"></script>
-        <h2>Tasks</h2>
-        <table class= "table table-striped table-bordered table-hover">
-          <thead>
+    <div class="container">
+        <table class="table table-striped table-bordered table-hover">
+
+        <thread>
             <tr>
-              <th>Task</th>
-              <th>Completed?</th>
+            <th></th>
+                <th>Task Description</th>
+                <th>Goal</th>
+                <th>Task Status</th>
             </tr>
-          </thead>
-          <tbody id="viewTasks">
-          </tbody>
-        </table>
-      </section> -->
-</body>
+        </thread>
+        <tbody id="displayList">
+
+        </tbody>
+    </div>
+
 </html>

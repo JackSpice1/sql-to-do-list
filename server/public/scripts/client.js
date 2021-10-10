@@ -1,28 +1,27 @@
+
+
 console.log('js');
 
 $(document).ready(OnReady);
-function OnReady(){
-    getTasks();
-    setupClickListeners();
-}// end OnReady
 
-function setupClickListeners(){
-    $('#add_button').on('click', addNewTask);
-    $('#outputUL').on('click', '.checkButtonUnchecked', {param: true}, toggleCheck);
-    $('#outputUL').on('click', '.checkButtonChecked', {param: false}, toggleCheck);
-    $('#outputUL').on('click', '.deleteButton', deleteTasks);
+function OnReady(){
+    $('#addTask').on('click', getTasks);
+    // $('#displayList').on('click', '.deleteBtn', )
+    $('#displayList').on('click', '.deleteButton', deleteTasks);
+    addNewTask();
+    // $('#displayList').on('click', '.editBtn', editTask);
 }
 
-function toggleCheck(_isComplete){
-    let isComplete= _isComplete.data.param; //
-    let objectToSend ={
-        completed: isComplete
-    }
-
+function taskComplete(){
+    let idToUpdate = $(this).closest('tr').data('item-id');
+    console.log(idToUpdate);
+    let status = {
+        status: 'done',
+    };
     $.ajax({
         method: 'PUT',  //make ajax call for updating tasks 
         url: '/tasks?id=' + $(this).data('id'),
-        data: objectToSend
+        data: status
     }).then(function(response){
         getTasks(); //refresh new tasks to DOM after changes 
     }).catch(function(err){
@@ -60,34 +59,38 @@ function getTasks(){
     }).then (function(response){
         console.log('back from GET route with:,', response);
         //display on DOM
-        let ready = ""
-        let outputArea= $('#outputUL'); //where are things going to display 
-        outputArea.empty(); 
-
         for(let i=0; i<response.length; i++){
-            let stringToAppend = '<ul class="task">';
             console.log(response[i].completed);
-        
-            if(response[i].completed){
-                stringToAppend += `<button class="iconButton checkButton checkButtonChecked" data-id='${response[i].id}'>
-                <img class="iconImg" src="https://primeacademycampus.slack.com/files/U02AAA7M3KK/F02H8JBBBTL/checkedbox.png" alt="Un-Complete Task">
-                </img>
-                </button>
-                <a class="taskText taskComplete" data-id='${response[i].task}</a>
-                `;
+
+            const oneTask = response[i];
+            
+            if(oneTask.status === 'done'){
+                $('#displayList').append(
+                    `<tr class="taskCompleted" data-item-completed="${oneTask.completed}" data-item-goal="${oneTask.goal}" data-item-id="${oneTask.id}" data-item-task="${oneTask.task}">
+                    <td class="checkbox"><input type="checkbox" checked></td>
+                    <td>${oneTask.task}</td>
+                    <td>${oneTask.goal}</td>
+                    <td>${oneTask.completed}</td>
+                    <td>button class="btn btn-outline-dark btn-sm editBtn">Edit</button>
+                    <button class="deleteBtn btn btn-danger btn-sm">Delete</button></td>
+                    <tr>`
+                )
             }
-            else{
-                stringToAppend += `button class="iconButton checkButton checkButtonUnchecked" data-id'${response[i].id}'>
-                <img class="iconImg" src="https://files.slack.com/files-pri/T4402UEHM-F02GTTD7NGP/box.png" alt="Complete Task">
-                </img>
-                </button>
-                <a class="taskText" data-id='${response[i].id}'>${response[i].task}</a>`;
+            else if (oneTask.status === 'Not done') {
+                $('#displayList').append(
+                    `<tr data-item-completed="${oneTask.completed}" data-item-goal="${oneTask.goal}" data-item-id="${oneTask.id}" data-item-task=${oneTask.task}">
+                    <td class="doneBtnBox><button class="doneBtn btn btn-info btn-sm"> Mark Complete</button></td>
+                    <td>${oneTask.task}</td>
+                    <td>${oneTask.goal}</td>
+                    <td></td>
+                    <td>button class="btn btn-outline-dark btn-sm editBtn">Edit</button>
+                    <button class="deleteBtn btn btn-danger btn-sm>Delete</button></td>
+                    <tr>`
+                )
+                
                 
             }
-            stringToAppend += `<button class="iconButton deleteButton" data-id='${response[i].id}'><img class="https://files.slack.com/files-pri/T4402UEHM-F02H5JJSBPF/trash.png" alt="Delete Task"></img></button>
-            <br></div>`;
-
-            outputArea.append(stringToAppend);
+        
         }
         
     }).catch(function(err){
@@ -99,7 +102,7 @@ function getTasks(){
 function deleteTasks(){
     console.log('in deleteTasks');
 
-    swal.fire({
+    swal({
         title: "Are you sure?",
         text: "once deleted, you will not be able to recover this task",
         icon: "warning",
@@ -114,7 +117,8 @@ function deleteTasks(){
             });
             $.ajax({
                 method: 'DELETE',
-                url: '/tasks?id' + $(this).data('id'),
+                url: '/tasks?id=' + $(this).data('id')
+                //?id' + $(this).data('id'),
             }).then(function(response){
                 displayAllTasks();
             }).catch(function(err){

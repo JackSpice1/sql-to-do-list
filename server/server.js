@@ -32,8 +32,8 @@ app.get('/tasks', (req, res)=>{
 //POST
 app.post('/tasks', (req, res)=>{
     console.log('/tasks POST:', req.body);
-    const queryString = 'INSERT INTO tasks  (task, completed) VALUES ($1, $2)';
-    const values = [req.body.task, req.body.completed];
+    const queryString = 'INSERT INTO tasks  (task, completed, goal) VALUES ($1, $2, $3)';
+    const values = [req.body.task, req.body.completed, req.body.goal];
     pool.query( queryString, values).then( (results)=>{
         res.sendStatus(201); //item creaated
     }).catch( (err)=>{
