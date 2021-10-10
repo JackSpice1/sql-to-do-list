@@ -10,7 +10,7 @@ function setupClickListeners(){
     $('#add_button').on('click', addNewTask);
     $('#outputUL').on('click', '.checkButtonUnchecked', {param: true}, toggleCheck);
     $('#outputUL').on('click', '.checkButtonChecked', {param: false}, toggleCheck);
-    $('#outputUL').on('click', '.deleteBtn', removeTask);
+    $('#outputUL').on('click', '.deleteButton', deleteTasks);
 }
 
 function toggleCheck(_isComplete){
@@ -26,7 +26,7 @@ function toggleCheck(_isComplete){
     }).then(function(response){
         getTasks(); //refresh new tasks to DOM after changes 
     }).catch(function(err){
-        console.log('error updating task:' err);
+        console.log('error updating task:',err);
         alert(`error updating task - see console for more details`);
     });
 }
@@ -68,19 +68,38 @@ function getTasks(){
             let stringToAppend = '<ul class="task">';
             console.log(response[i].completed);
         
-            if(response[i].completed{
+            if(response[i].completed){
                 stringToAppend += `<button class="iconButton checkButton checkButtonChecked" data-id='${response[i].id}'>
-                <img class="iconImg" src=`
-            })
+                <img class="iconImg" src="https://primeacademycampus.slack.com/files/U02AAA7M3KK/F02H8JBBBTL/checkedbox.png" alt="Un-Complete Task">
+                </img>
+                </button>
+                <a class="taskText taskComplete" data-id='${response[i].task}</a>
+                `;
+            }
+            else{
+                stringToAppend += `button class="iconButton checkButton checkButtonUnchecked" data-id'${response[i].id}'>
+                <img class="iconImg" src="https://files.slack.com/files-pri/T4402UEHM-F02GTTD7NGP/box.png" alt="Complete Task">
+                </img>
+                </button>
+                <a class="taskText" data-id='${response[i].id}'>${response[i].task}</a>`;
+                
+            }
+            stringToAppend += `<button class="iconButton deleteButton" data-id='${response[i].id}'><img class="https://files.slack.com/files-pri/T4402UEHM-F02H5JJSBPF/trash.png" alt="Delete Task"></img></button>
+            <br></div>`;
+
+            outputArea.append(stringToAppend);
         }
         
-    }      
+    }).catch(function(err){
+        console.log('error getting tasks:', err);
+        alert('error loading tasks - see console for more details');
+    });   
 }//end getTasks
 
 function deleteTasks(){
     console.log('in deleteTasks');
 
-    swal({
+    swal.fire({
         title: "Are you sure?",
         text: "once deleted, you will not be able to recover this task",
         icon: "warning",
@@ -111,3 +130,4 @@ function deleteTasks(){
 
 
 } //end deleteTasks
+
