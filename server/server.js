@@ -21,7 +21,7 @@ console.log('listening on port:', PORT);
 //GET
 // ROUTES
 app.get('/tasks', (req, res)=>{
-    const queryString = `SELECT * FROM tasks`;
+    const queryString = `SELECT * FROM tasks ORDER BY id`;
     pool.query( queryString ).then( (results)=> {
       res.send(results.rows );
     }).catch( (err )=>{
@@ -32,8 +32,8 @@ app.get('/tasks', (req, res)=>{
 //POST
 app.post('/tasks', (req, res)=>{
     console.log('/tasks POST:', req.body);
-    const queryString = 'INSERT INTO tasks  (task, completed, goal) VALUES ($1, $2, $3)';
-    const values = [req.body.task, req.body.completed, req.body.goal];
+    const queryString = 'INSERT INTO tasks  (task, completed) VALUES ($1, $2)';
+    const values = [req.body.task, req.body.completed];
     pool.query( queryString, values).then( (results)=>{
         res.sendStatus(201); //item creaated
     }).catch( (err)=>{
@@ -42,16 +42,23 @@ app.post('/tasks', (req, res)=>{
     })
 })
 //UPDATE
-app.put('/tasks', (req,res)=>{
-    console.log('/tasks update hit:', req.query);
-    const queryString= `UPDATE FROM tasks WHERE id='${req.query.id}';`;
+app.put('/tasks', (req,res)=> {
+    console.log('/tasks PUT hit:', req.query);
+    let queryString= '';
+    //if statement to make button toggle 
+    if(req.body.completed ==="true"){
+        queryString= `UPDATE "tasks" SET done=false WHERE id=${req.query.id};`
+    }else{
+        queryString= `UPDATE "tasks" SET done=true WHERE id=${req.query.id};`
+    }
     pool.query(queryString).then((results)=>{
-        res.sendStatus(200);
+      res.sendStatus(200);
     }).catch((err)=>{
-        console.log('error updating task', err);
-        res.sendStatus(500);
+      console.log('error deleting task from database:', err);
+      res.sendStatus(500);
     })
-})
+  })
+
 //DELETE
 app.delete('/tasks', (req,res)=> {
     console.log('/tasks delete hit:', req.query);
@@ -63,3 +70,6 @@ app.delete('/tasks', (req,res)=> {
       res.sendStatus(500);
     })
   })
+
+ 
+

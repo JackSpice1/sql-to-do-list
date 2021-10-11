@@ -1,35 +1,58 @@
-* {
-    margin: 0;
-    padding: 0;
+body{
+
 }
 
+
+
 header {
-    background: linear-gradient(90deg, #fcff9e 0%, #c67700 100%);
-    font-family: 'Lobster Two', 'cursive';
-    padding: 30px 40px;
-    color: white;
-    text-align: center;
+    background: rgb(14,214,140);
+    background: linear-gradient(90deg, rgba(14,214,140,1) 0%, rgba(203,13,203,1) 35%, rgba(0,243,255,1) 100%);
+    margin-bottom: 30px;;
+ 
 }
 
 h1{
-    font-family: 'Lobster Two', 'cursive';
-    letter-spacing: 2px;
-    margin-bottom: 15px;;
+    font-family: 'Yaldevi';
+    box-align: center;
+    margin-right: 0;
+    text-align: center;
 }
 
-.taskCompleted{
-    background-color: #e6ebea;
-    color: darkgoldenrod;
-    font-style: italic;
-    text-decoration: line-through;
+input {
+    width: 75%;
+    margin-right: 0;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-label{
-    margin-left: 1em;
+.addBtn{
+    width: 25%;
+    padding: 10px;
+    margin-left: 0;
+    background: magenta;
+    color: black;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
 }
 
-table{
-    margin-top: 1em;
+.addBtn:hover{
+    background-color: #bbb;
+    color: #FFF;
 }
+
+.outputDiv{
+    bacground-color: white-space
+
+}
+
+#tableSection {
+   background-color: white;
+}
+
 
