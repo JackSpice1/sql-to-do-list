@@ -88,26 +88,34 @@ function getTasks(){
         for(let i=0; i<response.length; i++){
 
             let uncheckedButton= `<button class="buttonUnchecked" data-id='${response[i].id}'><img class="iconImg" src="./images/box.png" alt="Un-complete Task" ></img></button>`
-            let checkedButton= `<button class="buttonChecked" data-id='${response[i].id}'><img class="iconImg" src="./images/checkedBox.png" alt ="Complete Task"></img></button>`
+            let checkedButton= `<button class="buttonChecked" data-id='${response[i].id}'><img class="iconImg" src="./images/checkedBox.png" alt ="CompleteTask"></img></button>`
             //task is complete
             if(response[i].completed === true){
                 completed = true;
                 taskCompleted = checkedButton
+                el.append(
+                    `<tr>
+                    <td data-id="${ response[i].id }">${taskCompleted}</td>
+                    <td class="taskComplete"> ${response[i].task}</td>
+                    <td data-id="${ response[i].id }"><button class = "deleteTaskButton" data-id='+ ${response[i].id} +'><img class="iconImg" src="./images/trash.png" alt="Un-Complete Task">
+                    </img></button></td>
+                    </tr>`
+                )
             }
             //task is not complete
             else  {
                 completed = false;
                 taskCompleted = uncheckedButton
+                el.append(
+                   `<tr>
+                   <td data-id="${ response[i].id }">${taskCompleted}</td>
+                   <td class="taskIncomplete"> ${response[i].task}</td>
+                   <td data-id="${ response[i].id }"><button class = "deleteTaskButton" data-id='+ ${response[i].id} +'><img class="iconImg" src="./images/trash.png" alt="Un-Complete Task">
+                   </img></button></td>
+                   </tr>` 
+                )
             }
 
-        el.append(
-        `<tr>
-        <td data-id="${ response[i].id }">${taskCompleted}</td>
-        <td>${response[i].task}</td>
-        <td data-id="${ response[i].id }"><button class = "deleteTaskButton" data-id='+ ${response[i].id} +'><img class="iconImg" src="./images/trash.png" alt="Un-Complete Task">
-        </img></button></td>
-        `
-        );
         }
         
     }).catch(function(err){

@@ -4,14 +4,28 @@
 
   }
   
+  .header{
+    background: linear-gradient(90deg, #fcff9e 0%, #c67700 100%);
+  }
+  .taskComplete{
+    text-decoration: line-through; 
+  
+  }
+
+  body{
+    font-family: 'Pathway Gothic One';
+    font-size: 25px;
+  }
   .neonText{
       position: center;
       text-align: center;
       font-family: 'Pathway Gothic One';
+      font-size: 100px;
+      color: white;
+      -webkit-text-stroke-color: black;
+      -webkit-text-stroke-width: 2px;
   }
-  tr th{
-      color: rebeccapurple;
-  }
+  
 
   /* Remove margins and padding from the list */
   .displayList {
@@ -19,16 +33,20 @@
     padding: 0;
   }
 
-  
+ 
   /* Style the list items */
   tr th {
-    font-family: 'Montserrat';
+    font-family: 'Pathway Gothic One';
     cursor: pointer;
     position: relative;
     padding: 12px 8px 12px 40px;
     background: #eee;
-    font-size: 18px;
+    font-size: 30px;
     transition: 0.2s;
+    color: goldenrod;
+    -webkit-text-stroke-color: black;
+      -webkit-text-stroke-width: .1px;
+    
   
     /* make the list items unselectable */
     -webkit-user-select: none;
@@ -47,28 +65,8 @@
     background: #ddd;
   }
   
-  /* When clicked on, add a background color and strike out text */
-  tr th.checked {
-    background: #888;
-    color: #fff;
-    text-decoration: line-through;
-  }
   
-  /* Add a "checked" mark when clicked on */
-  tr th.checked::before {
-    content: '';
-    position: absolute;
-    border-color: #fff;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
-  }
-  
-  /* Style the close button */
+  /* Style the icon.delete buttons */
 
   .iconImg{
       width: 15px;
@@ -79,19 +77,14 @@
     color: white;
   }
 
-  .uncheckedButton:hover{
+  .iconImg:hover{
     background-color: lightgreen;
     color: white;
   }
 
 
   /* Style the header */
-  .inputDiv {
-    background-color: #f44336;
-    padding: 30px 40px;
-    color: white;
-    text-align: center;
-  }
+
   
   /* Clear floats after the header */
   .header:after {
@@ -103,12 +96,18 @@
   /* Style the input */
   input {
     margin: 0;
-    border: none;
+    border: groove;
     border-radius: 0;
     width: 75%;
     padding: 10px;
-    float: left;
-    font-size: 16px;
+    float: right;
+    font-size: 25px;
+    
+  }
+
+  .taskIn{
+    float: right;
+    padding: 10px;
   }
   
   /* Style the "Add" button */
@@ -125,9 +124,7 @@
     border-radius: 0;
   }
   
-  .addTask:hover {
-    background-color: #bbb;
-  }
+
 
 
 
