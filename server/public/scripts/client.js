@@ -6,13 +6,18 @@ $(document).ready(OnReady);
 function OnReady(){
     $('#addTask').on('click', addNewTask);
     $('#displayList').on('click', '.deleteTaskButton', deleteTasks);
-    $('#displayList').on('click', '.completeTaskButton', taskComplete);
-    $('#displayList').on('click', '.incompleteTaskButton', taskIncomplete);
+    $('#displayList').on('click', '.buttonUnchecked', taskComplete);
+    $('#displayList').on('click', '.buttonChecked', taskIncomplete);
     getTasks();
+  
     // $('#displayList').on('click', '.editBtn', editTask);
 }
 
+
+
 function taskComplete(){
+    let el = $(this)
+    el.val('<img class="iconImg" src="./images/checkedBox.png" alt ="Complete Task"></img>')
     console.log('in tasks:', $(this).data('id') );
     let objectToSend = {
         completed: false
@@ -30,11 +35,12 @@ function taskComplete(){
 }
 
 function taskIncomplete(){
+    let el = $(this)
+    el.val('<img class="iconImg" src="./images/box.png" alt="Un-complete Task" ></img>')
     console.log( 'in tasks:', $( this ).data( 'id') );
 let objectToSend = {
     completed: true
 }
-
     $.ajax({
         method: 'PUT',
         url: '/tasks?id=' + $( this ).data( 'id' ),
@@ -81,24 +87,26 @@ function getTasks(){
         el.empty();
         for(let i=0; i<response.length; i++){
 
-            let appendCode = '';
-            
+            let uncheckedButton= `<button class="buttonUnchecked" data-id='${response[i].id}'><img class="iconImg" src="./images/box.png" alt="Un-complete Task" ></img></button>`
+            let checkedButton= `<button class="buttonChecked" data-id='${response[i].id}'><img class="iconImg" src="./images/checkedBox.png" alt ="Complete Task"></img></button>`
             //task is complete
             if(response[i].completed === true){
-               completed = true;
-               taskCompleted = '<button id= "incompleteTaskButton" data-id='+response[i].id+'>🗸</button>'
-               }
+                completed = true;
+                taskCompleted = checkedButton
+            }
             //task is not complete
-            else {
-               completed = false;
-               taskCompleted = '<button id="completeTaskButton" data-id='+response[i].id+'>☑</button>'
-                     }
+            else  {
+                completed = false;
+                taskCompleted = uncheckedButton
+            }
+
         el.append(
-        `<tr><td>${response[i].task}</td>
-        <td>${completed}</td>
+        `<tr>
         <td data-id="${ response[i].id }">${taskCompleted}</td>
-        <td data-id="${ response[i].id }"><button class = "deleteTaskButton" data-id='+ ${response[i].id} +'>🗑</button></td>
-        <td data-id="${ response[i].id }"><button class = "editTaskButton" data-id='+ ${response[i].id} +'>✐</button></td></tr></tr>`
+        <td>${response[i].task}</td>
+        <td data-id="${ response[i].id }"><button class = "deleteTaskButton" data-id='+ ${response[i].id} +'><img class="iconImg" src="./images/trash.png" alt="Un-Complete Task">
+        </img></button></td>
+        `
         );
         }
         

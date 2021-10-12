@@ -9,35 +9,39 @@
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href='https://fonts.googleapis.com/css?family=Vibur:400' rel='stylesheet' type='text/css'>
     <script src="https://kit.fontawesome.com/29ee0bc57e.js" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Fredoka+One&family=Lobster&family=Lobster+Two&family=Luckiest+Guy&family=Permanent+Marker&family=Yaldevi:wght@200&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Montserrat&family=Pathway+Gothic+One&display=swap" rel="stylesheet">
 
 <!-- link bootstrap imgages here for furture use-->
+<link rel="icon" type="image/png" href="./images/box.png">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <title>SQL to-do-list</title>
 </head>
 <body>
     <header>
     <header class="jumbotron">
-    <h1>Jackie's To-Do List</h1>
+    <h1 class="neonText">TO DO</h1>
 
 <div id="input Div" class="input-group mb-3">
     <input type="text" id="taskIn" value="" placeholder="Add New Task">
-    <button class="addBtn" id="addTask">Add Task ✅</button>
+
+    <button class="addBtn btn-outline-warning" id="addTask">Add Task </button>
 </div>
 </header>
 
 <div id ="outputDiv">
-<table class = "table table-hover table-dark">
+<table class = "table">
     <thread>
         <tr>
            
+            <th>Task Status</th>
             <th>Task</th>
-            <th></th>
-            <th>Remove Task</th>
-            <th>Edit Task</th>
+            <th>Delete Task</th>
         </tr>
     </thread>
     <tbody id="displayList"></tbody>

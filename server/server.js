@@ -47,9 +47,9 @@ app.put('/tasks', (req,res)=> {
     let queryString= '';
     //if statement to make button toggle 
     if(req.body.completed ==="true"){
-        queryString= `UPDATE "tasks" SET done=false WHERE id=${req.query.id};`
+        queryString= `UPDATE "tasks" SET completed=false WHERE id=${req.query.id};`
     }else{
-        queryString= `UPDATE "tasks" SET done=true WHERE id=${req.query.id};`
+        queryString= `UPDATE "tasks" SET completed=true WHERE id=${req.query.id};`
     }
     pool.query(queryString).then((results)=>{
       res.sendStatus(200);

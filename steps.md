@@ -1,0 +1,16 @@
+----SET UP STAGE---
+- git init
+- npm init --y
+- npm install express
+- npm install pg 
+- add "start: node server/server.js to package.json 
+- create server folder 
+- insert JQ and bootstrap 
+- public folder w/ html, client.js, styles.css and JQ
+- add to js file $( document ).ready( onReady ); and function OnReady()
+- add //requires, //uses, //global, //spin up server, //routes on server.js
+    - const express = require( 'express' );
+    - const app = express();
+    - const bodyParser = require( 'body-parser' );
+    - app.use( express.static( 'server/public' ) );
+    - app.use( bodyParser.urlencoded( { extended: true } ) );
